@@ -1,5 +1,6 @@
 package test.attprog.carlo.androidgcm;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ import java.util.List;
 import test.attprog.carlo.androidgcm.messages.Configuration;
 
 public class MainActivity extends AppCompatActivity {
+
+    List<Configuration> configurations = new ArrayList<>(5);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        final ListView listView = (ListView) findViewById(R.id.listView);
 
         List<Configuration> configurations = new ArrayList<>(5);
 
@@ -43,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
             configurations.add(tmp);
         }
 
-        ArrayAdapter<Configuration> adapter = new ArrayAdapter<Configuration>(getApplicationContext(),R.layout.content_main,configurations);
+        final ArrayAdapter<Configuration> adapter = new ArrayAdapter<Configuration>(getApplicationContext(),R.layout.content_main,configurations);
+        listView.setAdapter(adapter);
+
     }
 
     @Override
