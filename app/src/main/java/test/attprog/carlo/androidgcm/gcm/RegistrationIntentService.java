@@ -75,5 +75,9 @@ public class RegistrationIntentService extends IntentService{
         HttpEntity<IncomingRegistration> registrationHttpEntity = new HttpEntity<>(ir,headers);
         ResponseEntity<RegistrationEnum> registrationType = template.exchange("137.204.57.244", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
         Log.i(TAG, "Registration received " + registrationType.getBody());
+        RegistrationEnum body = registrationType.getBody();
+
+        if(body.equals(RegistrationEnum.REGISTRATION_OK))
+            Log.i(TAG,"Registration OK");
     }
 }

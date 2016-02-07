@@ -1,5 +1,6 @@
 package test.attprog.carlo.androidgcm.messages;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by Carlo on 07/02/2016.
  */
-public class ConfigurationList {
+public class ConfigurationList implements Serializable{
 
     private List<Configuration> configurationList;
 

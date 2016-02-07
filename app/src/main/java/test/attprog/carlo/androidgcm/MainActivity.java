@@ -8,6 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import test.attprog.carlo.androidgcm.messages.Configuration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +33,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        List<Configuration> configurations = new ArrayList<>(5);
+
+        for (int i = 0; i < configurations.size(); i++) {
+            Configuration tmp = new Configuration("Key-" + i, "Value-" + i);
+            configurations.add(tmp);
+        }
+
+        ArrayAdapter<Configuration> adapter = new ArrayAdapter<Configuration>(getApplicationContext(),R.layout.content_main,configurations);
     }
 
     @Override

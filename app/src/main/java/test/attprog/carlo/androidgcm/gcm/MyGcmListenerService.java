@@ -9,6 +9,8 @@ import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import test.attprog.carlo.androidgcm.MainActivity;
+import test.attprog.carlo.androidgcm.messages.ConfigurationList;
 import test.attprog.carlo.androidgcm.messages.Message;
 
 /**
@@ -25,9 +27,19 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Gson mapper = new GsonBuilder().create();
         String message = (String) data.get("message");
-        Log.i(TAG,"Message " + message);
+        Log.i(TAG, "Message " + message);
         Message messageVal = mapper.fromJson(message,Message.class);
+        ConfigurationList configurations = new ConfigurationList(messageVal.getData().getValues());
 
+        this.sendIntentToMain(configurations);
+    }
+
+    private void sendIntentToMain(ConfigurationList configurations) {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("newConfig",configurations);
+        mainIntent.putExtras(bundle);
+        startActivity(mainIntent);
 
     }
 
