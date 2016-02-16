@@ -14,6 +14,8 @@ import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
+
 import test.attprog.carlo.androidgcm.MainActivity;
 import test.attprog.carlo.androidgcm.R;
 import test.attprog.carlo.androidgcm.messages.ConfigurationList;
@@ -31,16 +33,19 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
 
+        Log.i(TAG,"Recevied new message from " + from + " at " + new Date().getTime());
         Gson mapper = new GsonBuilder().create();
+        Log.i(TAG, "FROM " + from);
         String message = (String) data.get("message");
         Log.i(TAG, "Message " + message);
+        String datas = data.getString("data");
         Message messageVal = mapper.fromJson(message,Message.class);
-        ConfigurationList configurations = new ConfigurationList(messageVal.getData().getValues());
+        Log.i(TAG,"datas " + datas);
 
-        this.sendIntentToMain(configurations);
+        this.sendIntentToMain(message);
     }
 
-    private void sendIntentToMain(ConfigurationList configurations) {
+    private void sendIntentToMain(String configurations) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
