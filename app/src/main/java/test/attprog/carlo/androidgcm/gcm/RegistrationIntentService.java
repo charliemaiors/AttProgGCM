@@ -19,6 +19,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.Date;
 
 import test.attprog.carlo.androidgcm.R;
 import test.attprog.carlo.androidgcm.messages.IncomingRegistration;
@@ -48,7 +49,7 @@ public class RegistrationIntentService extends IntentService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "GCM Registration Token: " + token);
+        Log.i(TAG, "GCM Registration Token: " + token + " at " + new Date().getTime());
 
         this.sendRegistrationToken(token);
 
@@ -74,10 +75,13 @@ public class RegistrationIntentService extends IntentService{
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<IncomingRegistration> registrationHttpEntity = new HttpEntity<>(ir,headers);
         ResponseEntity<RegistrationEnum> registrationType = template.exchange("137.204.57.244:8050", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
-        Log.i(TAG, "Registration received " + registrationType.getBody());
+        Log.i(TAG, "Registration received " + registrationType.getBody() + " at "  + new Date().getTime());
         RegistrationEnum body = registrationType.getBody();
 
         if(body.equals(RegistrationEnum.REGISTRATION_OK))
-            Log.i(TAG,"Registration OK");
+            Log.i(TAG,"Registration OK at " + new Date().getTime());
+        if(body.equals(RegistrationEnum.NEW_ACCOUNT_SEND_CONFIG)){
+            Log.i(TAG,"Registration NEW at " + new Date().getTime());
+        }
     }
 }
