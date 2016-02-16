@@ -36,6 +36,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.i(TAG,"Recevied new message from " + from + " at " + new Date().getTime());
         Gson mapper = new GsonBuilder().create();
         Log.i(TAG, "FROM " + from);
+        Log.i(TAG, "BUNDLE " + data.toString());
         String message = (String) data.get("message");
         Log.i(TAG, "Message " + message);
         String datas = data.getString("data");
@@ -55,7 +56,7 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle("GCM Message")
-                .setContentText(configurations.toString())
+                .setContentText(configurations)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
