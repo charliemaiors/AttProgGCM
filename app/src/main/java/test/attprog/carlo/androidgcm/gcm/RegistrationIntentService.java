@@ -65,17 +65,19 @@ public class RegistrationIntentService extends IntentService{
         String googleAccountEmail = null;
 
         for (Account account : list){
-            Log.i(TAG,"Account type " + account.type + " account name " + account.name);
+            //Log.i(TAG,"Account type " + account.type + " account name " + account.name);
             if (account.type.equalsIgnoreCase("com.google")){
+                Log.i(TAG,"Account " + account.name + " type " + account.type);
                 googleAccountEmail = account.name;
             }
         }
 
         IncomingRegistration ir = new IncomingRegistration(googleAccountEmail,token);
+        Log.d(TAG,"Incoming registration " + ir.toString());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<IncomingRegistration> registrationHttpEntity = new HttpEntity<>(ir,headers);
-        ResponseEntity<RegistrationEnum> registrationType = template.exchange("http:/137.204.57.244:8050/device", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
+        ResponseEntity<RegistrationEnum> registrationType = template.exchange("http://137.204.57.244:8050//gcm/registration/device", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
         Log.i(TAG, "Registration received " + registrationType.getBody() + " at "  + new Date().getTime());
         RegistrationEnum body = registrationType.getBody();
 
