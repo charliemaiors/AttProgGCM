@@ -36,12 +36,13 @@ public class RegistrationIntentService extends IntentService{
      */
     private final static String TAG = "GCM";
 
-    public RegistrationIntentService(String name) {
-        super(name);
+    public RegistrationIntentService() {
+        super(TAG);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.i(TAG,"Starting Service at "+ new Date().getTime());
         InstanceID instanceID = InstanceID.getInstance(this);
         String token = null;
         try {
@@ -74,7 +75,7 @@ public class RegistrationIntentService extends IntentService{
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<IncomingRegistration> registrationHttpEntity = new HttpEntity<>(ir,headers);
-        ResponseEntity<RegistrationEnum> registrationType = template.exchange("137.204.57.244:8050", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
+        ResponseEntity<RegistrationEnum> registrationType = template.exchange("http:/137.204.57.244:8050/device", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
         Log.i(TAG, "Registration received " + registrationType.getBody() + " at "  + new Date().getTime());
         RegistrationEnum body = registrationType.getBody();
 

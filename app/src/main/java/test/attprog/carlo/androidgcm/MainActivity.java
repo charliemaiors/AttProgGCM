@@ -17,6 +17,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import test.attprog.carlo.androidgcm.gcm.RegistrationIntentService;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Log.i(TAG,"Starting activity at " + new Date().getTime());
 
         if (checkPlayServices()) {
             Log.i(TAG, "PlayServices Found starting the service");
