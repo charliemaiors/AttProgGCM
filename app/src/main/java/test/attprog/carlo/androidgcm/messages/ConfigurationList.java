@@ -31,4 +31,11 @@ public class ConfigurationList implements Serializable{
     public void setConfigurationList(List<Configuration> configurationList) {
         this.configurationList = configurationList;
     }
+
+    @Override
+    public String toString() {
+        return "ConfigurationList{" +
+                "configurationList=" + configurationList +
+                '}';
+    }
 }

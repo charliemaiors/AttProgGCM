@@ -31,4 +31,12 @@ public class Configuration {
     public void setConfigurationValue(String configurationValue) {
         this.configurationValue = configurationValue;
     }
+
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "configurationName='" + configurationName + '\'' +
+                ", configurationValue='" + configurationValue + '\'' +
+                '}';
+    }
 }
