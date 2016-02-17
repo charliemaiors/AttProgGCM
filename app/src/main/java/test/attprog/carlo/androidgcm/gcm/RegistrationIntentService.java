@@ -73,10 +73,11 @@ public class RegistrationIntentService extends IntentService{
         }
 
         IncomingRegistration ir = new IncomingRegistration(googleAccountEmail,token);
-        Log.d(TAG,"Incoming registration " + ir.toString());
+        Log.d(TAG, "Incoming registration " + ir.toString());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<IncomingRegistration> registrationHttpEntity = new HttpEntity<>(ir,headers);
+        Log.i(TAG,"Sendig new registration token at " + new Date().getTime());
         ResponseEntity<RegistrationEnum> registrationType = template.exchange("http://137.204.57.244:8050//gcm/registration/device", HttpMethod.POST,registrationHttpEntity,RegistrationEnum.class);
         Log.i(TAG, "Registration received " + registrationType.getBody() + " at "  + new Date().getTime());
         RegistrationEnum body = registrationType.getBody();
