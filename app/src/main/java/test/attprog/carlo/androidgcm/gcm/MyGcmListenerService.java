@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Date;
+import java.util.Map;
 
 import test.attprog.carlo.androidgcm.MainActivity;
 import test.attprog.carlo.androidgcm.R;
@@ -33,15 +34,11 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
 
-        Log.i(TAG,"Recevied new message from " + from + " at " + new Date().getTime());
+        Log.i(TAG, "Recevied new message from " + from + " at " + new Date().getTime());
         Gson mapper = new GsonBuilder().create();
         Log.i(TAG, "FROM " + from);
         Log.i(TAG, "BUNDLE " + data.toString());
-        String message = (String) data.get("message");
-        Log.i(TAG, "Message " + message);
-        String datas = data.getString("data");
-        Message messageVal = mapper.fromJson(message,Message.class);
-        Log.i(TAG,"datas " + datas);
+        String message = (String) data.get("values");
 
         this.sendIntentToMain(message);
     }
