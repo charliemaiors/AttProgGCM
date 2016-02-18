@@ -38,7 +38,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Gson mapper = new GsonBuilder().create();
         Log.i(TAG, "FROM " + from);
         Log.i(TAG, "BUNDLE " + data.toString());
-        String message = (String) data.get("values");
+        String message = (String) data.get("values" );
 
         this.sendIntentToMain(message);
     }
